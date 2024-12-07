@@ -21,8 +21,13 @@ namespace CheckoutKata
 
         public decimal GetTotalPrice()
         {
-            PricingRule rule = _rules.FirstOrDefault(e => string.Compare(e.SKU, _basket[0], true) == 0);
-            return rule.SinglePrice;
+            decimal totalPrice = 0;
+            foreach (var item in _basket)
+            {
+                PricingRule rule = _rules.FirstOrDefault(e => string.Compare(e.SKU, item, true) == 0);
+                totalPrice += rule.SinglePrice;
+            }
+            return totalPrice;
         }
     }
 }
