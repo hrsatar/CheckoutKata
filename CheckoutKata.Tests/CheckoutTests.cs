@@ -13,5 +13,13 @@ namespace CheckoutKata.Tests
             new PricingRule {SKU="D",SinglePrice=15 }
             };
         }
+
+        [Fact]
+        public void ReturnZeroTotalPriceWhenCheckoutIsEmpty()
+        {
+            Checkout checkout = new Checkout();
+
+            Assert.Equal(0, checkout.GetTotalPrice());
+        }
     }
 }
