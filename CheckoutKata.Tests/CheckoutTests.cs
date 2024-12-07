@@ -17,7 +17,7 @@ namespace CheckoutKata.Tests
         [Fact]
         public void ReturnZeroTotalPriceWhenCheckoutIsEmpty()
         {
-            Checkout checkout = new Checkout();
+            Checkout checkout = new Checkout(Rules);
 
             Assert.Equal(0, checkout.GetTotalPrice());
         }
