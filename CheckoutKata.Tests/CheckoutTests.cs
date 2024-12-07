@@ -31,5 +31,16 @@ namespace CheckoutKata.Tests
 
             Assert.Equal(50, checkout.GetTotalPrice());
         }
+
+        [Fact]
+        public void ReturnSumSingleItemPriceWhenTwoSingleItemsScannedAndCheckoutIsEmpty()
+        {
+            Checkout checkout = new Checkout(Rules);
+
+            checkout.Scan("A");
+            checkout.Scan("B");
+
+            Assert.Equal(80, checkout.GetTotalPrice());
+        }
     }
 }
