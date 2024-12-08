@@ -42,5 +42,17 @@ namespace CheckoutKata.Tests
 
             Assert.Equal(80, checkout.GetTotalPrice());
         }
+
+        [Fact]
+        public void ReturnTotalPriceWhenAnItemWithSpecialOfferIsScanned()
+        {
+            Checkout checkout = new Checkout(Rules);
+
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("A");
+
+            Assert.Equal(130, checkout.GetTotalPrice());
+        }
     }
 }
