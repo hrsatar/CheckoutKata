@@ -3,7 +3,7 @@ using System.Data;
 
 namespace CheckoutKata
 {
-    public class Checkout
+    public class Checkout: ICheckout
     {
         private List<PricingRule> _rules;
         private List<string> _basket;
