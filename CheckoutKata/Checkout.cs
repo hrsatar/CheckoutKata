@@ -22,10 +22,26 @@ namespace CheckoutKata
         public decimal GetTotalPrice()
         {
             decimal totalPrice = 0;
+
+            Dictionary<string,int> itemsCountInBasket = new Dictionary<string,int>();
             foreach (var item in _basket)
             {
-                PricingRule rule = _rules.FirstOrDefault(e => string.Compare(e.SKU, item, true) == 0);
-                totalPrice += rule.SinglePrice;
+                itemsCountInBasket[item] = itemsCountInBasket.ContainsKey(item)? itemsCountInBasket[item]+1:1;
+            }
+
+             
+            foreach (var itemCountInBasket in itemsCountInBasket)
+            {
+                PricingRule rule = _rules.FirstOrDefault(e => string.Compare(e.SKU, itemCountInBasket.Key, true) == 0);
+                if (rule.SpecialOfferQuantity != null && rule.SpecialOfferQuantity > 0 && rule.SpecialOfferPrice != null)
+                {
+                    totalPrice += (int)(itemCountInBasket.Value / rule.SpecialOfferQuantity) * rule.SpecialOfferPrice;
+                    totalPrice += (int)(itemCountInBasket.Value % rule.SpecialOfferQuantity) * rule.SinglePrice;
+                }
+                else
+                {
+                    totalPrice += itemCountInBasket.Value* rule.SinglePrice;
+                }
             }
             return totalPrice;
         }
