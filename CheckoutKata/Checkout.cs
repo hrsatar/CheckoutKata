@@ -16,6 +16,10 @@ namespace CheckoutKata
 
         public void Scan(string item)
         {
+            if (string.IsNullOrEmpty(item) || !_rules.Any(e => string.Compare(e.SKU, item, true)==0))
+            {
+                return;
+            }
             _basket.Add(item);
         }
 
