@@ -54,5 +54,22 @@ namespace CheckoutKata.Tests
 
             Assert.Equal(130, checkout.GetTotalPrice());
         }
+
+        [Theory]
+        [InlineData(new string[] {"A", "A" , "A" , "A" , "B", "B", "B", "D" },270)]
+        [InlineData(new string[] { "A", "A", "B", "B", "B", "B", "D", "D", "D","C" }, 255)]
+        [InlineData(new string[] { "A", "B", "C", "D"}, 115)]
+        [InlineData(new string[] {  }, 0)]
+        public void ReturnTotalPriceWhenVariousItemsScannedAsActualTotalPricePercisionTest(string[] itemsToBeScanned,decimal expectedTotalPrice)
+        {
+            Checkout checkout = new Checkout(Rules);
+
+            foreach (string item in itemsToBeScanned)
+            {
+                checkout.Scan(item);
+            }
+
+            Assert.Equal(expectedTotalPrice, checkout.GetTotalPrice());
+        }
     }
 }
